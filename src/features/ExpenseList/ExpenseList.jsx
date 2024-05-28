@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
-import ExpenseContext from "../../context/expense.context";
 import ExpenseItem from "../ExpenseItem";
 
 const Wrapper = styled.div`
@@ -20,7 +19,7 @@ const NullData = styled.div`
 `;
 
 function ExpenseList({ selectedMonth }) {
-  const { expenses } = useContext(ExpenseContext);
+  const expenses = useSelector((state) => state.expenses);
 
   const filteredExpenses = expenses.filter(
     (expense) => parseInt(expense.date.split("-")[1]) === selectedMonth

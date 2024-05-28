@@ -1,9 +1,9 @@
 import Button from "@/components/Button";
 import PropTypes from "prop-types";
-import { useContext } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
-import ExpenseContext from "../../context/expense.context";
+import { deleteExpense } from "../../redux/slices/expenses.slice";
 
 const ButtonGroup = styled.div`
   display: flex;
@@ -12,11 +12,11 @@ const ButtonGroup = styled.div`
 
 function ExpenseManageButtonGroup({ goHome }) {
   const { expenseId } = useParams();
-  const { deleteExpense } = useContext(ExpenseContext);
+  const dispatch = useDispatch();
 
   const handleDeleteButtonClicked = () => {
     if (!confirm("정말 삭제하시겠습니까?")) return;
-    deleteExpense({ expenseId });
+    dispatch(deleteExpense(expenseId));
     goHome();
   };
 

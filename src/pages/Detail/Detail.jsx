@@ -1,10 +1,10 @@
 import Button from "@/components/Button";
-import { useContext } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import ExpenseContext from "../../context/expense.context";
 import ExpenseForm from "../../features/ExpenseForm/ExpenseForm";
 import ExpenseManageButtonGroup from "../../features/ExpenseManageButtonGroup/ExpenseManageButtonGroup";
+import { updateExpense } from "../../redux/slices/expenses.slice";
 
 const Wrapper = styled.div`
   height: 100%;
@@ -21,12 +21,13 @@ const NoData = styled.div`
 `;
 
 function Detail() {
+  const dispatch = useDispatch();
   const { expenseId } = useParams();
-  const { expenses, updateExpense } = useContext(ExpenseContext);
+  const expenses = useSelector((state) => state.expenses);
   const expense = expenses.find((expense) => expense.id === expenseId);
 
   const handleSubmit = ({ newExpense }) => {
-    updateExpense({ newExpense: { ...newExpense, id: expenseId } });
+    dispatch(updateExpense({ ...newExpense, id: expenseId }));
     goHome();
   };
   const navigate = useNavigate();

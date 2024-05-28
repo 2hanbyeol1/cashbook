@@ -2,9 +2,10 @@ import Button from "@/components/Button";
 import MonthSelector from "@/components/MonthSelector";
 import ExpenseForm from "@/features/ExpenseForm";
 import ExpenseList from "@/features/ExpenseList";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
-import ExpenseContext from "../../context/expense.context";
+import { addExpense } from "../../redux/slices/expenses.slice";
 
 const Wrapper = styled.main`
   display: flex;
@@ -24,18 +25,19 @@ const SubmitButton = styled(Button)`
 `;
 
 function Home() {
+  const dispatch = useDispatch();
+  const expenses = useSelector((state) => state.expenses);
+
   const [selectedMonth, setSelectedMonth] = useState(
     parseInt(localStorage.getItem("month")) || 1
   );
-
-  const { expenses, addExpense } = useContext(ExpenseContext);
 
   useEffect(() => {
     localStorage.setItem("month", selectedMonth);
   }, [selectedMonth]);
 
   const handleSubmit = ({ newExpense }) => {
-    addExpense(newExpense);
+    dispatch(addExpense(newExpense));
     const month = parseInt(newExpense.date.split("-")[1]);
     setSelectedMonth(month);
   };
