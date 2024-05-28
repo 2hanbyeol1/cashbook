@@ -1,7 +1,8 @@
 import Button from "@/components/Button";
-import PropTypes from "prop-types";
+import { useContext } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
+import ExpenseContext from "../../context/expense.context";
 import ExpenseForm from "../../features/ExpenseForm/ExpenseForm";
 import ExpenseManageButtonGroup from "../../features/ExpenseManageButtonGroup/ExpenseManageButtonGroup";
 
@@ -19,8 +20,9 @@ const NoData = styled.div`
   gap: 0.5rem;
 `;
 
-function Detail({ expenses, updateExpense, deleteExpense }) {
+function Detail() {
   const { expenseId } = useParams();
+  const { expenses, updateExpense } = useContext(ExpenseContext);
   const expense = expenses.find((expense) => expense.id === expenseId);
 
   const handleSubmit = ({ newExpense }) => {
@@ -34,10 +36,7 @@ function Detail({ expenses, updateExpense, deleteExpense }) {
     <Wrapper>
       {expense ? (
         <ExpenseForm handleSubmit={handleSubmit} initialValue={expense}>
-          <ExpenseManageButtonGroup
-            deleteExpense={deleteExpense}
-            goHome={goHome}
-          />
+          <ExpenseManageButtonGroup goHome={goHome} />
         </ExpenseForm>
       ) : (
         <NoData>
@@ -48,19 +47,5 @@ function Detail({ expenses, updateExpense, deleteExpense }) {
     </Wrapper>
   );
 }
-
-Detail.propTypes = {
-  expenses: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired,
-      item: PropTypes.string.isRequired,
-      amount: PropTypes.number.isRequired,
-      description: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  updateExpense: PropTypes.func.isRequired,
-  deleteExpense: PropTypes.func.isRequired,
-};
 
 export default Detail;

@@ -2,9 +2,9 @@ import Button from "@/components/Button";
 import MonthSelector from "@/components/MonthSelector";
 import ExpenseForm from "@/features/ExpenseForm";
 import ExpenseList from "@/features/ExpenseList";
-import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
+import ExpenseContext from "../../context/expense.context";
 
 const Wrapper = styled.main`
   display: flex;
@@ -23,10 +23,12 @@ const SubmitButton = styled(Button)`
   grid-column: span 4;
 `;
 
-function Home({ expenses, addExpense }) {
+function Home() {
   const [selectedMonth, setSelectedMonth] = useState(
     parseInt(localStorage.getItem("month")) || 1
   );
+
+  const { expenses, addExpense } = useContext(ExpenseContext);
 
   useEffect(() => {
     localStorage.setItem("month", selectedMonth);
@@ -55,18 +57,5 @@ function Home({ expenses, addExpense }) {
     </Wrapper>
   );
 }
-
-Home.propTypes = {
-  expenses: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired,
-      item: PropTypes.string.isRequired,
-      amount: PropTypes.number.isRequired,
-      description: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-  addExpense: PropTypes.func.isRequired,
-};
 
 export default Home;

@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
+import { useContext } from "react";
 import styled from "styled-components";
+import ExpenseContext from "../../context/expense.context";
 import ExpenseItem from "../ExpenseItem";
 
 const Wrapper = styled.div`
@@ -17,10 +19,13 @@ const NullData = styled.div`
   text-align: center;
 `;
 
-function ExpenseList({ selectedMonth, expenses }) {
+function ExpenseList({ selectedMonth }) {
+  const { expenses } = useContext(ExpenseContext);
+
   const filteredExpenses = expenses.filter(
     (expense) => parseInt(expense.date.split("-")[1]) === selectedMonth
   );
+
   return (
     <section>
       <Wrapper>
@@ -40,15 +45,6 @@ function ExpenseList({ selectedMonth, expenses }) {
 
 ExpenseList.propTypes = {
   selectedMonth: PropTypes.number.isRequired,
-  expenses: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      date: PropTypes.string.isRequired,
-      item: PropTypes.string.isRequired,
-      amount: PropTypes.number.isRequired,
-      description: PropTypes.string.isRequired,
-    })
-  ).isRequired,
 };
 
 export default ExpenseList;

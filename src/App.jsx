@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import GlobalStyle from "./GlobalStyle";
+import ExpenseContext from "./context/expense.context";
 import Detail from "./pages/Detail";
 import Home from "./pages/Home";
 
@@ -35,22 +36,19 @@ function App() {
   return (
     <BrowserRouter>
       <GlobalStyle />
-      <Routes>
-        <Route
-          path="/"
-          element={<Home expenses={expenses} addExpense={addExpense} />}
-        />
-        <Route
-          path="/detail/:expenseId"
-          element={
-            <Detail
-              expenses={expenses}
-              updateExpense={updateExpense}
-              deleteExpense={deleteExpense}
-            />
-          }
-        />
-      </Routes>
+      <ExpenseContext.Provider
+        value={{
+          expenses,
+          addExpense,
+          updateExpense,
+          deleteExpense,
+        }}
+      >
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/detail/:expenseId" element={<Detail />} />
+        </Routes>
+      </ExpenseContext.Provider>
     </BrowserRouter>
   );
 }

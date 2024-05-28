@@ -1,15 +1,18 @@
 import Button from "@/components/Button";
 import PropTypes from "prop-types";
+import { useContext } from "react";
 import { useParams } from "react-router-dom";
 import styled from "styled-components";
+import ExpenseContext from "../../context/expense.context";
 
 const ButtonGroup = styled.div`
   display: flex;
   gap: 0.3rem;
 `;
 
-function ExpenseManageButtonGroup({ deleteExpense, goHome }) {
+function ExpenseManageButtonGroup({ goHome }) {
   const { expenseId } = useParams();
+  const { deleteExpense } = useContext(ExpenseContext);
 
   const handleDeleteButtonClicked = () => {
     if (!confirm("정말 삭제하시겠습니까?")) return;
@@ -31,7 +34,6 @@ function ExpenseManageButtonGroup({ deleteExpense, goHome }) {
 }
 
 ExpenseManageButtonGroup.propTypes = {
-  deleteExpense: PropTypes.func.isRequired,
   goHome: PropTypes.func.isRequired,
 };
 
