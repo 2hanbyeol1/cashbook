@@ -13,8 +13,10 @@ const expensesSlice = createSlice({
     },
     updateExpense: (prevState, action) => {
       const newExpense = action.payload;
-      const idx = prevState.find((expense) => newExpense.id === expense.id);
-      prevState[idx] = { ...newExpense, amount: parseInt(newExpense.amount) };
+      const idx = prevState.findIndex(
+        (expense) => newExpense.id === expense.id
+      );
+      prevState[idx].amount = parseInt(newExpense.amount);
     },
     deleteExpense: (prevState, action) => {
       const expenseId = action.payload;
