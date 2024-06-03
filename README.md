@@ -1,15 +1,28 @@
-# React + Vite
+# CASHBOOK
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+지출 관리 애플리케이션
 
-Currently, two official plugins are available:
+## 개발 기간
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 2024-05-25 ~ 2024-05-28 : 기본 기능 (개인)
+- 2024-06-03 ~ : 유지 보수
 
-해야할거
+## 목표
 
-- 그래프
-- alert, confirm custom modal로
-- context
-- redux
+props-drilling
+context-api
+redux
+를 이용한 전역 상태 관리를 각각 사용해보고 장단점을 느껴보자
+
+## 기술 스택
+
+<div>
+  <img src="https://img.shields.io/badge/react.js-61DAFB?style=for-the-badge&logo=react&logoColor=black"/>
+  <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"/>
+  <img src="https://img.shields.io/badge/redux-764ABC?style=for-the-badge&logo=redux&logoColor=white"/>
+</div>
+
+## 기능
+
+- [x] 지출 내역 CRUD
+- [x] 월별 지출 내역 확인
